@@ -290,26 +290,20 @@ Then run /review-loop again. Multi-agent will be auto-configured."
       exit 0
     fi
 
-    # Ensure multi-agent is enabled in Codex config (auto-enable if missing)
+    # Validate multi-agent is enabled (should have been set up by /review-loop command)
     CODEX_CONFIG="${HOME}/.codex/config.toml"
-    if [ ! -f "$CODEX_CONFIG" ]; then
-      log "Creating $CODEX_CONFIG with multi_agent enabled"
-      mkdir -p "${HOME}/.codex"
-      printf '[features]\nmulti_agent = true\n' > "$CODEX_CONFIG"
-    elif ! grep -qE '^\s*multi_agent\s*=\s*true' "$CODEX_CONFIG"; then
-      log "Enabling multi_agent in $CODEX_CONFIG"
-      if grep -qE '^\[features\]' "$CODEX_CONFIG"; then
-        # Append under existing [features] section
-        if [[ "$OSTYPE" == "darwin"* ]]; then
-          sed -i '' '/^\[features\]/a\
-multi_agent = true' "$CODEX_CONFIG"
-        else
-          sed -i '/^\[features\]/a multi_agent = true' "$CODEX_CONFIG"
-        fi
-      else
-        # No [features] section yet — append one
-        printf '\n[features]\nmulti_agent = true\n' >> "$CODEX_CONFIG"
-      fi
+    if [ ! -f "$CODEX_CONFIG" ] || ! grep -qE '^\s*multi_agent\s*=\s*true' "$CODEX_CONFIG"; then
+      log "ERROR: multi_agent not enabled in $CODEX_CONFIG"
+      rm -f "$STATE_FILE"
+      REASON="ERROR: Codex multi-agent is not enabled in ~/.codex/config.toml. This should have been configured by /review-loop but may have been changed.
+
+Add to ~/.codex/config.toml:
+  [features]
+  multi_agent = true
+
+Then run /review-loop again."
+      jq -n --arg r "$REASON" '{decision:"block", reason:$r}'
+      exit 0
     fi
 
     log "Starting Codex multi-agent review (flags: $CODEX_FLAGS)"

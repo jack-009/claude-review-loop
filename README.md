@@ -32,7 +32,15 @@ After all agents finish, Codex deduplicates findings and writes a single consoli
 
 ### Codex multi-agent
 
-This plugin uses Codex [multi-agent](https://developers.openai.com/codex/multi-agent/) to run parallel review agents. The hook automatically enables `multi_agent = true` in `~/.codex/config.toml` if it's not already set.
+This plugin uses Codex [multi-agent](https://developers.openai.com/codex/multi-agent/) to run parallel review agents. The `/review-loop` command automatically enables it in `~/.codex/config.toml` on first use.
+
+To set it up manually instead:
+
+```toml
+# ~/.codex/config.toml
+[features]
+multi_agent = true
+```
 
 ## Installation
 
